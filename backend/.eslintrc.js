@@ -8,6 +8,7 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
   },
+  extends: ['plugin:prettier/recommended'],
   rules: {
     'arrow-spacing': ['error', { before: true, after: true }],
     'block-spacing': ['error', 'always'],
@@ -19,7 +20,11 @@ module.exports = {
     'key-spacing': ['error', { afterColon: true }],
     'keyword-spacing': ['error', { before: true }],
     'linebreak-style': 'error',
-    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
     'max-len': ['error', { code: 120, ignoreStrings: true }],
     'newline-before-return': 'error',
     'no-duplicate-imports': ['error', { includeExports: true }],
@@ -37,28 +42,39 @@ module.exports = {
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var', 'expression'] },
+      {
+        blankLine: 'any',
+        prev: ['const', 'let', 'var'],
+        next: ['const', 'let', 'var', 'expression'],
+      },
       { blankLine: 'always', prev: 'import', next: '*' },
       { blankLine: 'any', prev: 'import', next: 'import' },
       { blankLine: 'always', prev: 'multiline-block-like', next: '*' },
       { blankLine: 'always', prev: 'class', next: '*' },
-      { blankLine: 'always', prev: 'multiline-expression', next: 'multiline-expression' },
+      {
+        blankLine: 'always',
+        prev: 'multiline-expression',
+        next: 'multiline-expression',
+      },
       { blankLine: 'always', prev: '*', next: 'export' },
       { blankLine: 'any', prev: 'export', next: 'export' },
     ],
     'prefer-const': 'error',
     'prefer-template': 'error',
-    'prettier/prettier': 'off',
+    'prettier/prettier': 'error',
     'quote-props': ['error', 'as-needed'],
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
     'rest-spread-spacing': ['error', 'never'],
     semi: ['error', 'always'],
     'space-before-blocks': 'error',
-    'space-before-function-paren': ['error', {
-      anonymous: 'always',
-      named: 'never',
-      asyncArrow: 'always',
-    }],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
     'spaced-comment': ['error', 'always'],
   },
 };
