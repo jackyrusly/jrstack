@@ -25,10 +25,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
-  },
-  "paths": {
-    "~/*": ["src/*"]
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "exclude": [
     "node_modules"
