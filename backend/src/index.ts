@@ -17,6 +17,7 @@ import resolvers from './resolvers';
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers,
+      validate: false,
     }),
     context: () => ({ em: orm.em }),
   });
