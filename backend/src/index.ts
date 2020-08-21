@@ -7,7 +7,7 @@ import { MikroORM } from '@mikro-orm/core';
 import redis from 'redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
-import { __PROD__ } from './constants';
+import { __PROD__, SESSION_KEY } from './constants';
 import mikroConfig from './mikro-orm.config';
 import resolvers from './resolvers';
 
@@ -22,7 +22,7 @@ import resolvers from './resolvers';
 
   app.use(
     session({
-      name: 'qid',
+      name: SESSION_KEY,
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,
