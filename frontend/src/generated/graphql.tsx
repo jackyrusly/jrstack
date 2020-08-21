@@ -1,4 +1,3 @@
-/* eslint-disable */
 import gql from 'graphql-tag';
 import * as Urql from 'urql';
 export type Maybe<T> = T | null;
