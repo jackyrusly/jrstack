@@ -24,7 +24,6 @@ module.exports = {
     'no-multi-spaces': ['error', { ignoreEOLComments: false }],
     'no-redeclare': 'error',
     'no-this-before-super': 'error',
-    'no-unused-vars': 'error',
     'no-useless-constructor': 'error',
     'no-useless-return': 'error',
     'no-var': 'error',
