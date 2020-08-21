@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Formik, Form } from 'formik';
-import { Box, Button } from '@chakra-ui/core';
+import { Box, Button, Heading, Flex } from '@chakra-ui/core';
 import Wrapper from '@components/Wrapper';
 import InputField from '@components/InputField';
 import { useRegisterMutation } from '~/generated/graphql';
@@ -23,6 +23,10 @@ const Register: React.FC<{}> = () => {
 
   return (
     <Wrapper variant="small">
+      <Flex justifyContent="center">
+        <Heading mb={4}>Register</Heading>
+      </Flex>
+
       <Formik
         initialValues={{ username: '', password: '' }}
         onSubmit={handleSubmit}

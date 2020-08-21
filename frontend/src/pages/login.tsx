@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Formik, Form } from 'formik';
-import { Box, Button } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading } from '@chakra-ui/core';
 import Wrapper from '@components/Wrapper';
 import InputField from '@components/InputField';
 import { useLoginMutation } from '~/generated/graphql';
@@ -23,6 +23,10 @@ const Login: React.FC<{}> = () => {
 
   return (
     <Wrapper variant="small">
+      <Flex justifyContent="center">
+        <Heading mb={4}>Login</Heading>
+      </Flex>
+
       <Formik
         initialValues={{ username: '', password: '' }}
         onSubmit={handleSubmit}
