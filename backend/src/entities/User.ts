@@ -10,6 +10,10 @@ export class User {
 
   @Field()
   @Property({ type: 'string', unique: true })
+  email!: string;
+
+  @Field()
+  @Property({ type: 'string', unique: true })
   username!: string;
 
   @Property({ type: 'string' })

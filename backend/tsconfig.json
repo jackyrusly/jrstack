@@ -28,6 +28,7 @@
     "baseUrl": ".",
     "paths": {
       "@entities/*": ["src/entities/*"],
+      "@inputs/*": ["src/inputs/*"],
       "~/*": ["src/*"]
     }
   },

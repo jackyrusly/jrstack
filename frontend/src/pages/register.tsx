@@ -15,13 +15,17 @@ const Register: React.FC<{}> = () => {
   const router = useRouter();
 
   const handleSubmit = useCallback(async (values, { setErrors }) => {
-    const response = await register(values);
+    const response = await register({ options: values });
 
     if (response.data?.register.errors) {
       setErrors(toErrorMap(response.data.register.errors));
     } else if (response.data?.register.user) {
       router.push('/');
+
+      return false;
     }
+
+    return true;
   }, []);
 
   return (
@@ -32,16 +36,20 @@ const Register: React.FC<{}> = () => {
         </Flex>
 
         <Formik
-          initialValues={{ username: '', password: '' }}
+          initialValues={{ email: '', username: '', password: '' }}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
             <Form>
-              <InputField
-                name="username"
-                placeholder="Username"
-                label="Username"
-              />
+              <InputField name="email" placeholder="Email" label="Email" />
+
+              <Box mt={4}>
+                <InputField
+                  name="username"
+                  placeholder="Username"
+                  label="Username"
+                />
+              </Box>
 
               <Box mt={4}>
                 <InputField
