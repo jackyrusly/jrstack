@@ -1,5 +1,5 @@
 import { Resolver, Query, Ctx, Arg, Mutation } from 'type-graphql';
-import { Post } from '~/entities/Post';
+import { Post } from '@entities/Post';
 import { AppContext } from '~/types';
 
 @Resolver()

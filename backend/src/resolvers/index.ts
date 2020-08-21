@@ -1,4 +1,4 @@
-import { HelloResolver } from './HelloResolver';
 import { PostResolver } from './PostResolver';
+import { UserResolver } from './UserResolver';
 
-export default [HelloResolver, PostResolver] as const;
+export default [PostResolver, UserResolver] as const;
