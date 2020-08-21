@@ -15,7 +15,7 @@ const Navbar: React.FC<{}> = () => {
     logout();
   }, []);
 
-  if (fetching) {
+  if (isServer() || fetching) {
     body = <Box>&nbsp;</Box>;
   } else if (!data?.me) {
     body = (

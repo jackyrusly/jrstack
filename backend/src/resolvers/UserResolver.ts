@@ -11,10 +11,11 @@ import { User } from '@entities/User';
 import { AppContext } from '~/types';
 import argon2 from 'argon2';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { SESSION_KEY } from '~/constants';
+import { SESSION_KEY, FORGET_PASSWORD_PREFIX } from '~/constants';
 import { RegisterInput } from '@inputs/RegisterInput';
-import { validateRegister } from '~/validations/RegisterValidation';
+import { validateRegister } from '@validations/RegisterValidation';
 import { sendEmail } from '~/utils/EmailUtil';
+import { v4 } from 'uuid';
 
 @ObjectType()
 class FieldError {
@@ -155,14 +156,24 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async forgotPassword(@Arg('email') email: string, @Ctx() { em }: AppContext) {
+  async forgotPassword(
+    @Arg('email') email: string,
+    @Ctx() { em, redis }: AppContext,
+  ) {
     const user = await em.findOne(User, { email });
 
     if (!user) {
       return true;
     }
 
-    const token = '';
+    const token = v4();
+
+    await redis.set(
+      `${FORGET_PASSWORD_PREFIX}${token}`,
+      user.id,
+      'ex',
+      1000 * 60 * 60 * 24 * 3,
+    );
 
     sendEmail(
       user.email,

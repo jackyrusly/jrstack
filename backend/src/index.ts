@@ -4,7 +4,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { MikroORM } from '@mikro-orm/core';
-import redis from 'redis';
+import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { __PROD__, SESSION_KEY } from './constants';
@@ -18,13 +18,13 @@ import resolvers from './resolvers';
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
+  const redis = new Redis();
 
   app.use(
     session({
       name: SESSION_KEY,
       store: new RedisStore({
-        client: redisClient,
+        client: redis,
         disableTouch: true,
       }),
       cookie: {
@@ -44,7 +44,7 @@ import resolvers from './resolvers';
       resolvers,
       validate: false,
     }),
-    context: ({ req, res }) => ({ req, res, em: orm.em }),
+    context: ({ req, res }) => ({ req, res, em: orm.em, redis }),
   });
 
   apolloServer.applyMiddleware({
