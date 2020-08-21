@@ -18,21 +18,17 @@ const Navbar: React.FC<{}> = () => {
     body = (
       <>
         <NextLink href="/login">
-          <Link mr={4} color="white">
-            Login
-          </Link>
+          <Link mr={4}>Login</Link>
         </NextLink>
         <NextLink href="/register">
-          <Link color="white">Register</Link>
+          <Link>Register</Link>
         </NextLink>
       </>
     );
   } else {
     body = (
       <Flex>
-        <Box color="white" mr={4}>
-          {data.me.username}
-        </Box>
+        <Box mr={4}>{data.me.username}</Box>
         <Button
           variant="link"
           isLoading={logoutFetching}
@@ -45,7 +41,10 @@ const Navbar: React.FC<{}> = () => {
   }
 
   return (
-    <Flex bg="tomato" p={4} ml="auto">
+    <Flex bg="tomato" p={4} ml="auto" color="white">
+      <NextLink href="/">
+        <Link>Home</Link>
+      </NextLink>
       <Box ml="auto">{body}</Box>
     </Flex>
   );
