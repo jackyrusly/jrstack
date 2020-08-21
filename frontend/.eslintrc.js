@@ -5,7 +5,10 @@ module.exports = {
     es6: true,
     node: true,
   },
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    sourceType: 'module',
+  },
   plugins: ['react', 'react-hooks'],
   extends: ['plugin:prettier/recommended'],
   rules: {

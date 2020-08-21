@@ -47,7 +47,10 @@ import resolvers from './resolvers';
     context: ({ req, res }) => ({ req, res, em: orm.em }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({
+    app,
+    cors: { origin: 'http://localhost:3000', credentials: true },
+  });
 
   app.listen(4000, () => {
     console.log('Server started on localhost:4000');
