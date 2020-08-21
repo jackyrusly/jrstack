@@ -36,6 +36,7 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'no-useless-constructor': 'error',
     'no-useless-return': 'error',
+    'no-shadow': 'error',
     'no-var': 'error',
     'object-curly-spacing': ['error', 'always'],
     'object-shorthand': ['error', 'always'],

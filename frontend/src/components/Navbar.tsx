@@ -8,6 +8,7 @@ const Navbar: React.FC<{}> = () => {
   let body = null;
 
   if (fetching) {
+    body = <Box>&nbsp;</Box>;
   } else if (!data?.me) {
     body = (
       <>
