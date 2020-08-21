@@ -8,6 +8,7 @@ import { toErrorMap } from '~/utils/toErrorMap';
 import { useRouter } from 'next/router';
 import { withUrqlClient } from 'next-urql';
 import { createUrqlClient } from '~/utils/createUrqlClient';
+import Page from '@components/Page';
 
 const Register: React.FC<{}> = () => {
   const [, register] = useRegisterMutation();
@@ -24,45 +25,47 @@ const Register: React.FC<{}> = () => {
   }, []);
 
   return (
-    <Wrapper variant="small">
-      <Flex justifyContent="center">
-        <Heading mb={4}>Register</Heading>
-      </Flex>
+    <Page>
+      <Wrapper variant="small">
+        <Flex justifyContent="center">
+          <Heading mb={4}>Register</Heading>
+        </Flex>
 
-      <Formik
-        initialValues={{ username: '', password: '' }}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <InputField
-              name="username"
-              placeholder="Username"
-              label="Username"
-            />
-
-            <Box mt={4}>
+        <Formik
+          initialValues={{ username: '', password: '' }}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form>
               <InputField
-                name="password"
-                placeholder="Password"
-                label="Password"
-                type="password"
+                name="username"
+                placeholder="Username"
+                label="Username"
               />
-            </Box>
 
-            <Box mt={4}>
-              <Button
-                type="submit"
-                variantColor="teal"
-                isLoading={isSubmitting}
-              >
-                Register
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </Wrapper>
+              <Box mt={4}>
+                <InputField
+                  name="password"
+                  placeholder="Password"
+                  label="Password"
+                  type="password"
+                />
+              </Box>
+
+              <Box mt={4}>
+                <Button
+                  type="submit"
+                  variantColor="teal"
+                  isLoading={isSubmitting}
+                >
+                  Register
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </Wrapper>
+    </Page>
   );
 };
 

@@ -2,10 +2,13 @@ import React, { useCallback } from 'react';
 import { Link, Flex, Box, Button } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { useMeQuery, useLogoutMutation } from '~/generated/graphql';
+import { isServer } from '~/utils/isServer';
 
 const Navbar: React.FC<{}> = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
-  const [{ data, fetching }] = useMeQuery();
+  const [{ data, fetching }] = useMeQuery({
+    pause: isServer(),
+  });
   let body = null;
 
   const handleLogout = useCallback(() => {
@@ -28,7 +31,10 @@ const Navbar: React.FC<{}> = () => {
   } else {
     body = (
       <Flex>
-        <Box mr={4}>{data.me.username}</Box>
+        <Box mr={4} fontWeight="bold">
+          {data.me.username}
+        </Box>
+
         <Button
           variant="link"
           isLoading={logoutFetching}
