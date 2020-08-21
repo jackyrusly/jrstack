@@ -10,7 +10,6 @@ import connectRedis from 'connect-redis';
 import { __PROD__ } from './constants';
 import mikroConfig from './mikro-orm.config';
 import resolvers from './resolvers';
-import { AppContext } from './types';
 
 (async () => {
   const orm = await MikroORM.init(mikroConfig);
