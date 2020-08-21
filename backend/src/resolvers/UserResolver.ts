@@ -96,6 +96,8 @@ export class UserResolver {
         .returning('*');
 
       user = result[0];
+      user.createdAt = user.created_at;
+      user.updatedAt = user.updated_at;
     } catch (err) {
       if (err.code === '23505') {
         return {
