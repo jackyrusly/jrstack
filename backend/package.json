@@ -6,9 +6,7 @@
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
-    "dev:ts": "nodemon --exec ts-node src/index.ts",
-    "start": "node dist/index.js",
-    "start:ts": "ts-node src/index.ts"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +20,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
-    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
   "dependencies": {
@@ -40,8 +37,8 @@
     "type-graphql": "^1.0.0"
   },
   "_moduleAliases": {
-    "@entities": "src/entities",
-    "~": "src"
+    "@entities": "dist/entities",
+    "~": "dist"
   },
   "mikro-orm": {
     "useTsNode": true,
