@@ -7,7 +7,11 @@ import { Box, Button, Flex } from '@chakra-ui/core';
 import Page from '@components/Page';
 
 const Index = () => {
-  const [{ data }] = usePostsQuery();
+  const [{ data }] = usePostsQuery({
+    variables: {
+      limit: 10,
+    },
+  });
 
   return (
     <Page>

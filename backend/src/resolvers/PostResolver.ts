@@ -11,12 +11,30 @@ import { Post } from '@entities/Post';
 import { PostInput } from '@inputs/PostInput';
 import { AppContext } from '~/types';
 import { isAuth } from '@middlewares/AuthMiddleware';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class PostResolver {
   @Query(() => [Post])
-  posts(): Promise<Post[]> {
-    return Post.find();
+  posts(
+    @Arg('limit', () => Int) limit: number,
+    @Arg('cursor', () => String, { nullable: true }) cursor: string,
+  ): Promise<Post[]> {
+    const take = Math.min(50, limit);
+
+    const query = getConnection()
+      .getRepository(Post)
+      .createQueryBuilder('p')
+      .orderBy('created_at', 'DESC')
+      .take(take);
+
+    if (cursor) {
+      query.where('created_at < :cursor', {
+        cursor: new Date(parseInt(cursor)),
+      });
+    }
+
+    return query.getMany();
   }
 
   @Query(() => Post, { nullable: true })
