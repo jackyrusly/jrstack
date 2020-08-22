@@ -32,7 +32,7 @@ const Register: React.FC<{}> = () => {
     <Page>
       <Wrapper variant="small">
         <Flex justifyContent="center">
-          <Heading mb={4}>Register</Heading>
+          <Heading mb={8}>Register</Heading>
         </Flex>
 
         <Formik
