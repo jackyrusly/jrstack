@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, Int, Root } from 'type-graphql';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -23,6 +23,11 @@ export class Post extends BaseEntity {
   @Field()
   @Column()
   text!: string;
+
+  @Field()
+  textShort(@Root() root: Post): string {
+    return root.text.slice(0, 50);
+  }
 
   @Field()
   @Column({ type: 'int', default: 0 })
