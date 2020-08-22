@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { withUrqlClient } from 'next-urql';
 import NextLink from 'next/link';
 import { createUrqlClient } from '@utils/createUrqlClient';
@@ -7,11 +7,18 @@ import { Box, Button, Text, Flex, Stack, Heading } from '@chakra-ui/core';
 import Page from '@components/Page';
 
 const Index = () => {
-  const [{ data }] = usePostsQuery({
-    variables: {
-      limit: 10,
-    },
+  const [variables, setVariables] = useState({
+    limit: 10,
+    cursor: null as string | null | undefined,
   });
+  const [{ data, fetching }] = usePostsQuery({ variables });
+
+  const handleLoadMore = useCallback(() => {
+    setVariables((prevVariables) => ({
+      limit: prevVariables.limit,
+      cursor: data?.posts.items[data?.posts.items.length - 1].createdAt,
+    }));
+  }, [data]);
 
   return (
     <Page>
@@ -22,9 +29,9 @@ const Index = () => {
         </NextLink>
       </Flex>
 
-      <Stack spacing={8}>
+      <Stack spacing={8} mb={4}>
         {data &&
-          data.posts.map((post) => (
+          data.posts.items.map((post) => (
             <Box key={post.id} p={5} shadow="md" borderWidth="1px">
               <Heading fontSize="xl">{post.title}</Heading>
               <Text mt={4}>{post.textShort}</Text>
@@ -32,11 +39,18 @@ const Index = () => {
           ))}
       </Stack>
 
-      <Flex>
-        <Button mx="auto" my={8}>
-          Load more
-        </Button>
-      </Flex>
+      {data?.posts.hasMore && (
+        <Flex>
+          <Button
+            isLoading={fetching}
+            mx="auto"
+            mb={4}
+            onClick={handleLoadMore}
+          >
+            Load more
+          </Button>
+        </Flex>
+      )}
     </Page>
   );
 };

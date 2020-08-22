@@ -50,6 +50,7 @@
     "@entities": "dist/entities",
     "@inputs": "dist/inputs",
     "@middlewares": "dist/middlewares",
+    "@responses": "dist/responses",
     "@utils": "dist/utils",
     "@validations": "dist/validations",
     "~": "dist"

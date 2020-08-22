@@ -6,27 +6,33 @@ import {
   Int,
   Ctx,
   UseMiddleware,
+  ObjectType,
 } from 'type-graphql';
 import { Post } from '@entities/Post';
 import { PostInput } from '@inputs/PostInput';
 import { AppContext } from '~/types';
 import { isAuth } from '@middlewares/AuthMiddleware';
 import { getConnection } from 'typeorm';
+import PaginatedResponse from '~/responses/PaginatedResponse';
+
+@ObjectType()
+class PaginatedPostsResponse extends PaginatedResponse<Post>(Post) {}
 
 @Resolver()
 export class PostResolver {
-  @Query(() => [Post])
-  posts(
+  @Query(() => PaginatedPostsResponse)
+  async posts(
     @Arg('limit', () => Int) limit: number,
     @Arg('cursor', () => String, { nullable: true }) cursor: string,
-  ): Promise<Post[]> {
+  ): Promise<PaginatedPostsResponse> {
     const take = Math.min(50, limit);
+    const takePlusOne = take + 1;
 
     const query = getConnection()
       .getRepository(Post)
       .createQueryBuilder('p')
       .orderBy('created_at', 'DESC')
-      .take(take);
+      .take(takePlusOne);
 
     if (cursor) {
       query.where('created_at < :cursor', {
@@ -34,7 +40,12 @@ export class PostResolver {
       });
     }
 
-    return query.getMany();
+    const posts = await query.getMany();
+
+    return {
+      items: posts.slice(0, take),
+      hasMore: posts.length === takePlusOne,
+    };
   }
 
   @Query(() => Post, { nullable: true })
