@@ -60,15 +60,14 @@ const Register: React.FC<{}> = () => {
                 />
               </Box>
 
-              <Box mt={4}>
-                <Button
-                  type="submit"
-                  variantColor="teal"
-                  isLoading={isSubmitting}
-                >
-                  Register
-                </Button>
-              </Box>
+              <Button
+                mt={4}
+                type="submit"
+                variantColor="teal"
+                isLoading={isSubmitting}
+              >
+                Register
+              </Button>
             </Form>
           )}
         </Formik>

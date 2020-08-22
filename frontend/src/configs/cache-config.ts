@@ -4,6 +4,7 @@ import {
   MeQuery,
   MeDocument,
   RegisterMutation,
+  ChangePasswordMutation,
 } from '~/generated/graphql';
 import { CacheExchangeOpts } from '@urql/exchange-graphcache/dist/types/cacheExchange';
 
@@ -19,6 +20,22 @@ function updateQuery<Result, Query>(
 export default {
   updates: {
     Mutation: {
+      changePassword: (_result, _args, cache, _info) => {
+        updateQuery<ChangePasswordMutation, MeQuery>(
+          cache,
+          { query: MeDocument },
+          _result,
+          (result, query) => {
+            if (result.changePassword.errors) {
+              return query;
+            }
+
+            return {
+              me: result.changePassword.user,
+            };
+          },
+        );
+      },
       logout: (_result, _args, cache, _info) => {
         updateQuery<LoginMutation, MeQuery>(
           cache,

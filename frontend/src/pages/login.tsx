@@ -56,15 +56,14 @@ const Login: React.FC<{}> = () => {
                 />
               </Box>
 
-              <Box mt={4}>
-                <Button
-                  type="submit"
-                  variantColor="teal"
-                  isLoading={isSubmitting}
-                >
-                  Login
-                </Button>
-              </Box>
+              <Button
+                mt={4}
+                type="submit"
+                variantColor="teal"
+                isLoading={isSubmitting}
+              >
+                Login
+              </Button>
             </Form>
           )}
         </Formik>
