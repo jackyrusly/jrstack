@@ -29,6 +29,7 @@
     "paths": {
       "@entities/*": ["src/entities/*"],
       "@inputs/*": ["src/inputs/*"],
+      "@middlewares/*": ["src/middlewares/*"],
       "@validations/*": ["src/validations/*"],
       "~/*": ["src/*"]
     }

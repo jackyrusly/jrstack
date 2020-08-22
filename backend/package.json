@@ -49,6 +49,7 @@
   "_moduleAliases": {
     "@entities": "dist/entities",
     "@inputs": "dist/inputs",
+    "@middlewares": "dist/middlewares",
     "@validations": "dist/validations",
     "~": "dist"
   }
