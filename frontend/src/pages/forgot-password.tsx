@@ -3,9 +3,9 @@ import Page from '@components/Page';
 import { Flex, Heading, Button, Box } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import InputField from '@components/InputField';
-import { useForgotPasswordMutation } from '~/generated/graphql';
+import { useForgotPasswordMutation } from '@graphql';
 import { withUrqlClient } from 'next-urql';
-import { createUrqlClient } from '~/utils/createUrqlClient';
+import { createUrqlClient } from '@utils/createUrqlClient';
 
 const ForgotPassword: React.FC<{}> = () => {
   const [isComplete, setIsComplete] = useState(false);
@@ -35,7 +35,7 @@ const ForgotPassword: React.FC<{}> = () => {
           isComplete ? (
             <Box>
               An email has been sent to{' '}
-              <Box as="span" color="tomato">
+              <Box as="span" color="primary">
                 {values.email}
               </Box>
               . Please check your inbox.

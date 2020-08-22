@@ -5,7 +5,7 @@ import {
   MeDocument,
   RegisterMutation,
   ChangePasswordMutation,
-} from '~/generated/graphql';
+} from '@graphql';
 import { CacheExchangeOpts } from '@urql/exchange-graphcache/dist/types/cacheExchange';
 
 function updateQuery<Result, Query>(

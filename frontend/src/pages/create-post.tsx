@@ -3,10 +3,11 @@ import Page from '@components/Page';
 import { Flex, Heading, Box, Button } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import InputField from '@components/InputField';
-import { useCreatePostMutation } from '~/generated/graphql';
+import { useCreatePostMutation } from '@graphql';
 import { useRouter } from 'next/router';
+import { withAuth } from '@utils/withAuth';
+import { createUrqlClient } from '@utils/createUrqlClient';
 import { withUrqlClient } from 'next-urql';
-import { createUrqlClient } from '~/utils/createUrqlClient';
 
 const CreatePost: React.FC<{}> = () => {
   const router = useRouter();
@@ -55,4 +56,4 @@ const CreatePost: React.FC<{}> = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(CreatePost);
+export default withUrqlClient(createUrqlClient)(withAuth(CreatePost));

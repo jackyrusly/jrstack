@@ -5,11 +5,11 @@ import { Flex, Heading, Box, Button, Link } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import InputField from '@components/InputField';
 import { withUrqlClient } from 'next-urql';
-import { createUrqlClient } from '~/utils/createUrqlClient';
-import { useChangePasswordMutation } from '~/generated/graphql';
+import { createUrqlClient } from '@utils/createUrqlClient';
+import { useChangePasswordMutation } from '@graphql';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import { toErrorMap } from '~/utils/toErrorMap';
+import { toErrorMap } from '@utils/toErrorMap';
 
 interface ChangePasswordProps {
   token: string;
@@ -60,7 +60,7 @@ const ChangePassword: NextPage<ChangePasswordProps> = ({ token }) => {
                 {tokenError}
                 <Box justifyContent="flex-end">
                   <NextLink href="/forgot-password">
-                    <Link color="tomato" fontSize="0.875rem">
+                    <Link color="primary" fontSize="0.875rem">
                       Go to Forgot Password again?
                     </Link>
                   </NextLink>

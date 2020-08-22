@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { Link, Flex, Box, Button } from '@chakra-ui/core';
 import NextLink from 'next/link';
-import { useMeQuery, useLogoutMutation } from '~/generated/graphql';
-import { isServer } from '~/utils/isServer';
+import { useMeQuery, useLogoutMutation } from '@graphql';
+import { isServer } from '@utils/isServer';
 
 const Navbar: React.FC<{}> = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
@@ -48,7 +48,7 @@ const Navbar: React.FC<{}> = () => {
 
   return (
     <Flex
-      bg="tomato"
+      bg="primary"
       p={4}
       ml="auto"
       color="white"

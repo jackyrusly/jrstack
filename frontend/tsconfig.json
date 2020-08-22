@@ -28,6 +28,9 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@configs/*": ["src/configs/*"],
+      "@graphql": ["src/generated/graphql.tsx"],
+      "@utils/*": ["src/utils/*"],
       "~/*": ["src/*"]
     }
   },

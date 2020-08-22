@@ -2,7 +2,7 @@ import { dedupExchange, fetchExchange, Exchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { pipe, tap } from 'wonka';
 import Router from 'next/router';
-import cacheExchangeConfig from '~/configs/cache-config';
+import cacheExchangeConfig from '@configs/cache-config';
 
 const errorExchange: Exchange = ({ forward }) => (ops$) => {
   return pipe(

@@ -13,7 +13,7 @@ import argon2 from 'argon2';
 import { SESSION_KEY, FORGET_PASSWORD_PREFIX } from '~/constants';
 import { RegisterInput } from '@inputs/RegisterInput';
 import { validateRegister } from '@validations/RegisterValidation';
-import { sendEmail } from '~/utils/EmailUtil';
+import { sendEmail } from '@utils/EmailUtil';
 import { v4 } from 'uuid';
 import { getConnection } from 'typeorm';
 

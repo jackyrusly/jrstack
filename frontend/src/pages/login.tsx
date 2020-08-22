@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { Box, Button, Flex, Heading, Link } from '@chakra-ui/core';
 import InputField from '@components/InputField';
-import { useLoginMutation } from '~/generated/graphql';
-import { toErrorMap } from '~/utils/toErrorMap';
+import { useLoginMutation } from '@graphql';
+import { toErrorMap } from '@utils/toErrorMap';
 import { useRouter } from 'next/router';
 import { withUrqlClient } from 'next-urql';
 import NextLink from 'next/link';
-import { createUrqlClient } from '~/utils/createUrqlClient';
+import { createUrqlClient } from '@utils/createUrqlClient';
 import Page from '@components/Page';
 
 const Login: React.FC<{}> = () => {
@@ -20,7 +20,11 @@ const Login: React.FC<{}> = () => {
     if (response.data?.login.errors) {
       setErrors(toErrorMap(response.data.login.errors));
     } else if (response.data?.login.user) {
-      await router.push('/');
+      if (typeof router.query.redirect === 'string') {
+        await router.push(router.query.redirect);
+      } else {
+        await router.push('/');
+      }
     }
   }, []);
 
@@ -53,7 +57,7 @@ const Login: React.FC<{}> = () => {
 
             <Flex mt={2} justifyContent="flex-end">
               <NextLink href="/forgot-password">
-                <Link color="tomato" fontSize="0.875rem">
+                <Link color="primary" fontSize="0.875rem">
                   Forgot Password?
                 </Link>
               </NextLink>

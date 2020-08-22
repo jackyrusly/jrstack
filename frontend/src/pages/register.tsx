@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { Box, Button, Heading, Flex } from '@chakra-ui/core';
 import InputField from '@components/InputField';
-import { useRegisterMutation } from '~/generated/graphql';
-import { toErrorMap } from '~/utils/toErrorMap';
+import { useRegisterMutation } from '@graphql';
+import { toErrorMap } from '@utils/toErrorMap';
 import { useRouter } from 'next/router';
 import { withUrqlClient } from 'next-urql';
-import { createUrqlClient } from '~/utils/createUrqlClient';
+import { createUrqlClient } from '@utils/createUrqlClient';
 import Page from '@components/Page';
 
 const Register: React.FC<{}> = () => {

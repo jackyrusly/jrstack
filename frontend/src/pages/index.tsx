@@ -1,8 +1,8 @@
 import React from 'react';
 import { withUrqlClient } from 'next-urql';
 import NextLink from 'next/link';
-import { createUrqlClient } from '~/utils/createUrqlClient';
-import { usePostsQuery } from '~/generated/graphql';
+import { createUrqlClient } from '@utils/createUrqlClient';
+import { usePostsQuery } from '@graphql';
 import { Box, Button, Flex } from '@chakra-ui/core';
 import Page from '@components/Page';
 
