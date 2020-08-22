@@ -1,11 +1,12 @@
 import React from 'react';
 import Navbar from './Navbar';
+import Wrapper from './Wrapper';
 
 const Page: React.FC<{}> = ({ children }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <Wrapper variant="small">{children}</Wrapper>
     </>
   );
 };

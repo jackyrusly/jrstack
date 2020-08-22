@@ -47,7 +47,15 @@ const Navbar: React.FC<{}> = () => {
   }
 
   return (
-    <Flex bg="tomato" p={4} ml="auto" color="white">
+    <Flex
+      bg="tomato"
+      p={4}
+      ml="auto"
+      color="white"
+      zIndex={1}
+      position="sticky"
+      top={0}
+    >
       <NextLink href="/">
         <Link>Home</Link>
       </NextLink>

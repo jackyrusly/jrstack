@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { NextPage } from 'next';
 import Page from '@components/Page';
-import Wrapper from '@components/Wrapper';
 import { Flex, Heading, Box, Button, Link } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import InputField from '@components/InputField';
@@ -36,56 +35,50 @@ const ChangePassword: NextPage<ChangePasswordProps> = ({ token }) => {
 
       setErrors(errorMap);
     } else if (response.data?.changePassword.user) {
-      router.push('/');
-
-      return false;
+      await router.push('/');
     }
-
-    return true;
   }, []);
 
   return (
     <Page>
-      <Wrapper variant="small">
-        <Flex justifyContent="center">
-          <Heading mb={8}>Change Password</Heading>
-        </Flex>
+      <Flex justifyContent="center">
+        <Heading mb={8}>Change Password</Heading>
+      </Flex>
 
-        <Formik initialValues={{ newPassword: '' }} onSubmit={handleSubmit}>
-          {({ isSubmitting }) => (
-            <Form>
-              <InputField
-                name="newPassword"
-                placeholder="New Password"
-                label="New Password"
-                type="password"
-              />
+      <Formik initialValues={{ newPassword: '' }} onSubmit={handleSubmit}>
+        {({ isSubmitting }) => (
+          <Form>
+            <InputField
+              name="newPassword"
+              placeholder="New Password"
+              label="New Password"
+              type="password"
+            />
 
-              {tokenError && (
-                <Box color="red.500" mt={2} fontSize="0.875rem">
-                  {tokenError}
-                  <Box justifyContent="flex-end">
-                    <NextLink href="/forgot-password">
-                      <Link color="tomato" fontSize="0.875rem">
-                        Go to Forgot Password again?
-                      </Link>
-                    </NextLink>
-                  </Box>
+            {tokenError && (
+              <Box color="red.500" mt={2} fontSize="0.875rem">
+                {tokenError}
+                <Box justifyContent="flex-end">
+                  <NextLink href="/forgot-password">
+                    <Link color="tomato" fontSize="0.875rem">
+                      Go to Forgot Password again?
+                    </Link>
+                  </NextLink>
                 </Box>
-              )}
+              </Box>
+            )}
 
-              <Button
-                mt={4}
-                type="submit"
-                variantColor="teal"
-                isLoading={isSubmitting}
-              >
-                Change Password
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </Wrapper>
+            <Button
+              mt={4}
+              type="submit"
+              variantColor="teal"
+              isLoading={isSubmitting}
+            >
+              Change Password
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </Page>
   );
 };

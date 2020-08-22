@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import Page from '@components/Page';
-import Wrapper from '@components/Wrapper';
 import { Flex, Heading, Button, Box } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import InputField from '@components/InputField';
@@ -27,38 +26,36 @@ const ForgotPassword: React.FC<{}> = () => {
 
   return (
     <Page>
-      <Wrapper variant="small">
-        <Flex justifyContent="center">
-          <Heading mb={8}>Forgot Password</Heading>
-        </Flex>
+      <Flex justifyContent="center">
+        <Heading mb={8}>Forgot Password</Heading>
+      </Flex>
 
-        <Formik initialValues={{ email: '' }} onSubmit={handleSubmit}>
-          {({ values, isSubmitting }) =>
-            isComplete ? (
-              <Box>
-                An email has been sent to{' '}
-                <Box as="span" color="tomato">
-                  {values.email}
-                </Box>
-                . Please check your inbox.
+      <Formik initialValues={{ email: '' }} onSubmit={handleSubmit}>
+        {({ values, isSubmitting }) =>
+          isComplete ? (
+            <Box>
+              An email has been sent to{' '}
+              <Box as="span" color="tomato">
+                {values.email}
               </Box>
-            ) : (
-              <Form>
-                <InputField name="email" placeholder="Email" label="Email" />
+              . Please check your inbox.
+            </Box>
+          ) : (
+            <Form>
+              <InputField name="email" placeholder="Email" label="Email" />
 
-                <Button
-                  mt={4}
-                  type="submit"
-                  variantColor="teal"
-                  isLoading={isSubmitting}
-                >
-                  Forgot Password
-                </Button>
-              </Form>
-            )
-          }
-        </Formik>
-      </Wrapper>
+              <Button
+                mt={4}
+                type="submit"
+                variantColor="teal"
+                isLoading={isSubmitting}
+              >
+                Forgot Password
+              </Button>
+            </Form>
+          )
+        }
+      </Formik>
     </Page>
   );
 };
