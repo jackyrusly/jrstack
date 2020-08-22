@@ -30,6 +30,7 @@
       "@entities/*": ["src/entities/*"],
       "@inputs/*": ["src/inputs/*"],
       "@middlewares/*": ["src/middlewares/*"],
+      "@utils/*": ["src/utils/*"],
       "@validations/*": ["src/validations/*"],
       "~/*": ["src/*"]
     }

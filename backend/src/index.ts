@@ -10,7 +10,7 @@ import connectRedis from 'connect-redis';
 import { __PROD__, SESSION_KEY } from './constants';
 import resolvers from './resolvers';
 import Entities from './entities';
-import { SnakeCaseNamingStrategy } from './utils/OrmUtil';
+import { SnakeCaseNamingStrategy } from '@utils/OrmUtil';
 
 (async () => {
   await createConnection({
