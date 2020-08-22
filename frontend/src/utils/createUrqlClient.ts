@@ -63,7 +63,7 @@ const cursorPagination = (): Resolver => {
     return {
       __typename,
       hasMore,
-      posts: results,
+      items: results,
     };
   };
 };
