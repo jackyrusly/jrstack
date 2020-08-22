@@ -10,12 +10,12 @@ import {
 import { User } from '@entities/User';
 import { AppContext } from '~/types';
 import argon2 from 'argon2';
-import { EntityManager } from '@mikro-orm/postgresql';
 import { SESSION_KEY, FORGET_PASSWORD_PREFIX } from '~/constants';
 import { RegisterInput } from '@inputs/RegisterInput';
 import { validateRegister } from '@validations/RegisterValidation';
 import { sendEmail } from '~/utils/EmailUtil';
 import { v4 } from 'uuid';
+import { getConnection } from 'typeorm';
 
 @ObjectType()
 class FieldError {
@@ -38,20 +38,18 @@ class UserResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
-  async me(@Ctx() { em, req }: AppContext) {
+  me(@Ctx() { req }: AppContext) {
     if (!req.session.userId) {
       return null;
     }
 
-    const user = await em.findOne(User, { id: req.session.userId });
-
-    return user;
+    return User.findOne(req.session.userId);
   }
 
   @Mutation(() => UserResponse)
   async register(
     @Arg('options') options: RegisterInput,
-    @Ctx() { em, req }: AppContext,
+    @Ctx() { req }: AppContext,
   ): Promise<UserResponse> {
     const errors = validateRegister(options);
 
@@ -63,21 +61,19 @@ export class UserResolver {
     let user;
 
     try {
-      const result = await (em as EntityManager)
-        .createQueryBuilder(User)
-        .getKnexQuery()
-        .insert({
+      const result = await getConnection()
+        .createQueryBuilder()
+        .insert()
+        .into(User)
+        .values({
           email: options.email,
           username: options.username,
           password: hashedPassword,
-          created_at: new Date(),
-          updated_at: new Date(),
         })
-        .returning('*');
+        .returning('*')
+        .execute();
 
-      user = result[0];
-      user.createdAt = user.created_at;
-      user.updatedAt = user.updated_at;
+      user = result.raw[0];
     } catch (err) {
       if (err.code === '23505') {
         return {
@@ -100,14 +96,13 @@ export class UserResolver {
   async login(
     @Arg('usernameOrEmail') usernameOrEmail: string,
     @Arg('password') password: string,
-    @Ctx() { em, req }: AppContext,
+    @Ctx() { req }: AppContext,
   ): Promise<UserResponse> {
-    const user = await em.findOne(
-      User,
-      usernameOrEmail.includes('@')
+    const user = await User.findOne({
+      where: usernameOrEmail.includes('@')
         ? { email: usernameOrEmail }
         : { username: usernameOrEmail },
-    );
+    });
 
     if (!user) {
       return {
@@ -159,7 +154,7 @@ export class UserResolver {
   async changePassword(
     @Arg('token') token: string,
     @Arg('newPassword') newPassword: string,
-    @Ctx() { req, em, redis }: AppContext,
+    @Ctx() { req, redis }: AppContext,
   ): Promise<UserResponse> {
     if (newPassword.length <= 2) {
       return {
@@ -185,7 +180,7 @@ export class UserResolver {
       };
     }
 
-    const user = await em.findOne(User, { id: parseInt(userId) });
+    const user = await User.findOne(parseInt(userId));
 
     if (!user) {
       return {
@@ -199,8 +194,7 @@ export class UserResolver {
     }
 
     const hashedPassword = await argon2.hash(newPassword);
-    user.password = hashedPassword;
-    await em.persistAndFlush(user);
+    await User.update({ id: user.id }, { password: hashedPassword });
 
     redis.del(`${FORGET_PASSWORD_PREFIX}${token}`);
     req.session.userId = user.id;
@@ -211,9 +205,9 @@ export class UserResolver {
   @Mutation(() => Boolean)
   async forgotPassword(
     @Arg('email') email: string,
-    @Ctx() { em, redis }: AppContext,
+    @Ctx() { redis }: AppContext,
   ) {
-    const user = await em.findOne(User, { email });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       return true;
