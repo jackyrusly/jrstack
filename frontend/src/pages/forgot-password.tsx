@@ -25,7 +25,7 @@ const ForgotPassword: React.FC<{}> = () => {
   }, []);
 
   return (
-    <Page>
+    <Page variant="small">
       <Flex justifyContent="center">
         <Heading mb={8}>Forgot Password</Heading>
       </Flex>

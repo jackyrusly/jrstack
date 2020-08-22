@@ -40,7 +40,7 @@ const ChangePassword: NextPage<ChangePasswordProps> = ({ token }) => {
   }, []);
 
   return (
-    <Page>
+    <Page variant="small">
       <Flex justifyContent="center">
         <Heading mb={8}>Change Password</Heading>
       </Flex>

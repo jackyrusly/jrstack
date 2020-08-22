@@ -1,12 +1,16 @@
 import React from 'react';
 import Navbar from './Navbar';
-import Wrapper from './Wrapper';
+import Wrapper, { VariantType } from './Wrapper';
 
-const Page: React.FC<{}> = ({ children }) => {
+interface PageProps {
+  variant?: VariantType;
+}
+
+const Page: React.FC<PageProps> = ({ children, variant }) => {
   return (
     <>
       <Navbar />
-      <Wrapper variant="small">{children}</Wrapper>
+      <Wrapper variant={variant}>{children}</Wrapper>
     </>
   );
 };

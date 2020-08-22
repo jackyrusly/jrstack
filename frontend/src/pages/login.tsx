@@ -29,7 +29,7 @@ const Login: React.FC<{}> = () => {
   }, []);
 
   return (
-    <Page>
+    <Page variant="small">
       <Flex justifyContent="center">
         <Heading mb={8}>Login</Heading>
       </Flex>

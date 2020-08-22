@@ -24,7 +24,7 @@ const Register: React.FC<{}> = () => {
   }, []);
 
   return (
-    <Page>
+    <Page variant="small">
       <Flex justifyContent="center">
         <Heading mb={8}>Register</Heading>
       </Flex>

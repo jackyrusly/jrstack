@@ -22,7 +22,7 @@ const CreatePost: React.FC<{}> = () => {
   }, []);
 
   return (
-    <Page>
+    <Page variant="small">
       <Flex justifyContent="center">
         <Heading mb={8}>Create Post</Heading>
       </Flex>

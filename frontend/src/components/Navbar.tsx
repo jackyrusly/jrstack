@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
-import { Link, Flex, Box, Button } from '@chakra-ui/core';
+import { Link, Flex, Box, Button, Heading } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { useMeQuery, useLogoutMutation } from '@graphql';
 import { isServer } from '@utils/isServer';
+import ColorModeSwitcher from './ColorModeSwitcher';
 
 const Navbar: React.FC<{}> = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
@@ -37,6 +38,7 @@ const Navbar: React.FC<{}> = () => {
 
         <Button
           variant="link"
+          color="white"
           isLoading={logoutFetching}
           onClick={handleLogout}
         >
@@ -55,11 +57,21 @@ const Navbar: React.FC<{}> = () => {
       zIndex={1}
       position="sticky"
       top={0}
+      alignItems="center"
     >
       <NextLink href="/">
-        <Link>Home</Link>
+        <Link>
+          <Heading size="md" mr={4}>
+            JRStack
+          </Heading>
+        </Link>
       </NextLink>
-      <Box ml="auto">{body}</Box>
+
+      <Box ml="auto" mr={16}>
+        {body}
+      </Box>
+
+      <ColorModeSwitcher />
     </Flex>
   );
 };
